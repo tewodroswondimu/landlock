@@ -8,7 +8,8 @@
 
 import UIKit
 
-class TransactionsViewController: UIViewController {
+class TransactionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet weak var transactionTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +21,27 @@ class TransactionsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // Adds the line underneath the imageview
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.separatorInset = UIEdgeInsets.zero
+    }
     
+    // Set the number of sections available in the table view
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    // Set the number of rows in the sections available in the table view
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    // Definition of each cell in the table view
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = transactionTableView.dequeueReusableCell(withIdentifier: "Transaction", for: indexPath) as UITableViewCell
+        cell.textLabel?.text = "Transaction \(indexPath.row + 1)"
+        cell.detailTextLabel?.text = "Description \(indexPath.row + 1)"
+        return cell
+    }
 }
 
