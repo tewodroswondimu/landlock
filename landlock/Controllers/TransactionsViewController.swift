@@ -13,7 +13,21 @@ class TransactionsViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        // For the extended navigation bar effect to work, a few changes
+        // must be made to the actual navigation bar.  Some of these changes could
+        // be applied in the storyboard but are made in code for clarity.
+        
+        // Translucency of the navigation bar is disabled so that it matches with
+        // the non-translucent background of the extension view.
+        navigationController!.navigationBar.isTranslucent = false
+        
+        // The navigation bar's shadowImage is set to a transparent image.  In
+        // addition to providing a custom background image, this removes
+        // the grey hairline at the bottom of the navigation bar.  The
+        // ExtendedNavBarView will draw its own hairline.
+        navigationController!.navigationBar.shadowImage = #imageLiteral(resourceName: "TransparentPixel")
+        // "Pixel" is a solid white 1x1 image.
+        navigationController!.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "TransparentPixel"), for: .default)
     }
     
     override func didReceiveMemoryWarning() {
