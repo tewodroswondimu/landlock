@@ -16,6 +16,7 @@
 		1816E4781FCDAF5F0082D39C /* PropertiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816E4771FCDAF5F0082D39C /* PropertiesViewController.swift */; };
 		1816E47A1FCDAF770082D39C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816E4791FCDAF770082D39C /* ProfileViewController.swift */; };
 		1816E47C1FCDAFB90082D39C /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816E47B1FCDAFB90082D39C /* TransactionsViewController.swift */; };
+		18E1D44E1FCF22FE008C6ADB /* MarketPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1D44D1FCF22FE008C6ADB /* MarketPlaceViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		1816E4771FCDAF5F0082D39C /* PropertiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertiesViewController.swift; sourceTree = "<group>"; };
 		1816E4791FCDAF770082D39C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1816E47B1FCDAFB90082D39C /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
+		18E1D44D1FCF22FE008C6ADB /* MarketPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPlaceViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				1816E4771FCDAF5F0082D39C /* PropertiesViewController.swift */,
 				1816E4791FCDAF770082D39C /* ProfileViewController.swift */,
 				1816E47B1FCDAFB90082D39C /* TransactionsViewController.swift */,
+				18E1D44D1FCF22FE008C6ADB /* MarketPlaceViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -157,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1816E4651FCD7FD30082D39C /* TabBarViewController.swift in Sources */,
+				18E1D44E1FCF22FE008C6ADB /* MarketPlaceViewController.swift in Sources */,
 				1816E4781FCDAF5F0082D39C /* PropertiesViewController.swift in Sources */,
 				1816E47C1FCDAFB90082D39C /* TransactionsViewController.swift in Sources */,
 				1816E47A1FCDAF770082D39C /* ProfileViewController.swift in Sources */,
