@@ -8,7 +8,8 @@
 
 import Foundation
 
-class Address {
+/*
+class Address: NSObject {
     // Define properties of Address
     var country: String?
     var city: String?
@@ -21,4 +22,8 @@ class Address {
         self.street = street
         self.zipCode = zipCode
     }
+    
+    // Getter and setter methods
+    
 }
+*/

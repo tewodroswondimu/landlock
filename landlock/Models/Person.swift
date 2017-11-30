@@ -7,8 +7,8 @@
 //
 
 import Foundation
-
-class Person {
+/*
+class Person: NSObject {
     // Define properties of a Person
     var email: String
     var firstName: String
@@ -25,4 +25,8 @@ class Person {
         self.address = address
         self.accountBalance = accountBalance
     }
-}
+    
+    // Getter and setter methods
+    
+    // Gets a person with an email address
+}*/ 

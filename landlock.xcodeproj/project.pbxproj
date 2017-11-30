@@ -16,12 +16,15 @@
 		1816E4781FCDAF5F0082D39C /* PropertiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816E4771FCDAF5F0082D39C /* PropertiesViewController.swift */; };
 		1816E47A1FCDAF770082D39C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816E4791FCDAF770082D39C /* ProfileViewController.swift */; };
 		1816E47C1FCDAFB90082D39C /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816E47B1FCDAFB90082D39C /* TransactionsViewController.swift */; };
+		182986581FD092300041A489 /* PerformTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182986571FD092300041A489 /* PerformTransactionViewController.swift */; };
 		18E1D44E1FCF22FE008C6ADB /* MarketPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1D44D1FCF22FE008C6ADB /* MarketPlaceViewController.swift */; };
 		18E1D4501FCF422D008C6ADB /* PropertyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1D44F1FCF422D008C6ADB /* PropertyDetailsViewController.swift */; };
 		18E1D4521FCF4294008C6ADB /* TransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1D4511FCF4294008C6ADB /* TransactionDetailsViewController.swift */; };
 		18F4603A1FD045E4005FB34E /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F460391FD045E4005FB34E /* Property.swift */; };
 		18F4603C1FD0474A005FB34E /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4603B1FD0474A005FB34E /* Person.swift */; };
 		18F4603E1FD04831005FB34E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4603D1FD04831005FB34E /* Address.swift */; };
+		18F460451FD06197005FB34E /* RESTApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F460441FD06197005FB34E /* RESTApiManager.swift */; };
+		18F460471FD07944005FB34E /* JSONReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F460461FD07943005FB34E /* JSONReader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,12 +39,15 @@
 		1816E4771FCDAF5F0082D39C /* PropertiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertiesViewController.swift; sourceTree = "<group>"; };
 		1816E4791FCDAF770082D39C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1816E47B1FCDAFB90082D39C /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
+		182986571FD092300041A489 /* PerformTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformTransactionViewController.swift; sourceTree = "<group>"; };
 		18E1D44D1FCF22FE008C6ADB /* MarketPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPlaceViewController.swift; sourceTree = "<group>"; };
 		18E1D44F1FCF422D008C6ADB /* PropertyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDetailsViewController.swift; sourceTree = "<group>"; };
 		18E1D4511FCF4294008C6ADB /* TransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewController.swift; sourceTree = "<group>"; };
 		18F460391FD045E4005FB34E /* Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 		18F4603B1FD0474A005FB34E /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		18F4603D1FD04831005FB34E /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		18F460441FD06197005FB34E /* RESTApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTApiManager.swift; sourceTree = "<group>"; };
+		18F460461FD07943005FB34E /* JSONReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONReader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +80,7 @@
 		1816E4611FCD7FD30082D39C /* landlock */ = {
 			isa = PBXGroup;
 			children = (
+				18F4603F1FD054FA005FB34E /* API */,
 				18F460371FD045C5005FB34E /* Models */,
 				1816E4741FCDAEEC0082D39C /* Controllers */,
 				1816E4621FCD7FD30082D39C /* AppDelegate.swift */,
@@ -96,6 +103,7 @@
 				18E1D44D1FCF22FE008C6ADB /* MarketPlaceViewController.swift */,
 				18E1D44F1FCF422D008C6ADB /* PropertyDetailsViewController.swift */,
 				18E1D4511FCF4294008C6ADB /* TransactionDetailsViewController.swift */,
+				182986571FD092300041A489 /* PerformTransactionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -108,6 +116,15 @@
 				18F4603D1FD04831005FB34E /* Address.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		18F4603F1FD054FA005FB34E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				18F460441FD06197005FB34E /* RESTApiManager.swift */,
+				18F460461FD07943005FB34E /* JSONReader.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,11 +203,14 @@
 				18E1D4501FCF422D008C6ADB /* PropertyDetailsViewController.swift in Sources */,
 				18E1D4521FCF4294008C6ADB /* TransactionDetailsViewController.swift in Sources */,
 				1816E4651FCD7FD30082D39C /* TabBarViewController.swift in Sources */,
+				18F460471FD07944005FB34E /* JSONReader.swift in Sources */,
 				18F4603C1FD0474A005FB34E /* Person.swift in Sources */,
 				18E1D44E1FCF22FE008C6ADB /* MarketPlaceViewController.swift in Sources */,
+				182986581FD092300041A489 /* PerformTransactionViewController.swift in Sources */,
 				18F4603E1FD04831005FB34E /* Address.swift in Sources */,
 				1816E4781FCDAF5F0082D39C /* PropertiesViewController.swift in Sources */,
 				1816E47C1FCDAFB90082D39C /* TransactionsViewController.swift in Sources */,
+				18F460451FD06197005FB34E /* RESTApiManager.swift in Sources */,
 				1816E47A1FCDAF770082D39C /* ProfileViewController.swift in Sources */,
 				1816E4631FCD7FD30082D39C /* AppDelegate.swift in Sources */,
 				1816E4761FCDAF120082D39C /* SearchViewController.swift in Sources */,

@@ -8,20 +8,69 @@
 
 import UIKit
 
+struct JSONDescription: Decodable {
+    let type: String
+    let results: [Property]
+}
+
+struct Property: Decodable {
+    let landId: String?
+    let landSize: Double?
+    let landStatus: String?
+    let parent: String?
+    let owner: String? 
+}
+
 class PropertiesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var propertiesTableView: UITableView!
     
     // Fake data to load into properties
-    let propertyNames = [""]
+    var properties = [Property]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        properties = [Property]()
+        self.updateProperties()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func updateProperties() {
+        
+        let jsonUrlString = "http://165.165.131.67:4000/land"
+        guard let url = URL(string: jsonUrlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            // Check if there is an error
+            // Check if the response status is 200 OK
+            
+            // Get a non-optional data string
+            guard let data = data else { return }
+            
+            do {
+                let jsonDescription = try JSONDecoder().decode(JSONDescription.self, from: data)
+                // print(jsonDescription.type, "Ha ha, it works",  jsonDescription.results)
+                
+                if (jsonDescription.type == "Land") {
+                    for property in jsonDescription.results {
+                        self.properties.append(property)
+                        DispatchQueue.main.async {
+                            self.propertiesTableView?.reloadData()
+                        }
+                    }
+                }
+                
+            } catch let jsonErr {
+                print("Error serializing json: \(jsonErr)")
+            }
+            }.resume()
     }
     
     // Adds the line underneath the imageview
@@ -36,14 +85,15 @@ class PropertiesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // Set the number of rows in the sections available in the table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.properties.count
     }
     
     // Definition of each cell in the table view
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = propertiesTableView.dequeueReusableCell(withIdentifier: "Property", for: indexPath) as UITableViewCell
-        cell.textLabel?.text = "Property \(indexPath.row + 1)"
-        cell.detailTextLabel?.text = "Description \(indexPath.row + 1)"
+        let property = self.properties[indexPath.row]
+        cell.textLabel?.text = property.landId
+        cell.detailTextLabel?.text = property.landStatus
         return cell
     }
 }
