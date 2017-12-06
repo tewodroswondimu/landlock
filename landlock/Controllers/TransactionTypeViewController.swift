@@ -9,8 +9,16 @@
 import UIKit
 
 class TransactionTypeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var currentChoice = ""
+    @IBOutlet weak var tableView: UITableView!
+    var currentChoice: String?
+    var senderVC: PerformNewTransactionViewController?
     let choices = ["Buy", "Sell", "Subdivide"]
+    
+    override func viewDidLoad() {
+        if let choice = currentChoice {
+            print("The current choice is \(choice)")
+        }
+    }
     
     // Adds the line underneath the imageview
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -40,6 +48,13 @@ class TransactionTypeViewController: UIViewController, UITableViewDelegate, UITa
                 cell.accessoryType = .none
             } else {
                 cell.accessoryType = .checkmark
+                self.currentChoice = choices[indexPath.row]
+                if let backVC = self.senderVC {
+                    backVC.transactionType = choices[indexPath.row]
+                }
+                if let navController = self.navigationController {
+                    navController.popViewController(animated: true)
+                }
             }
         }
     }

@@ -10,7 +10,7 @@ import UIKit
 
 class PerformNewTransactionViewController: UIViewController {
     
-    let transactionType = "Transfer"
+    var transactionType = "Transfer"
     let property = "001-A"
     let amount = "1"
     
@@ -23,7 +23,8 @@ class PerformNewTransactionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        transactionTypeButton.contentHorizontalAlignment = .center
+        transactionTypeButton.titleLabel?.text = transactionType
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         self.view.addGestureRecognizer(tap)
 
@@ -32,13 +33,18 @@ class PerformNewTransactionViewController: UIViewController {
         amountTextField.borderStyle = .none
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        print("the new transaction type is: \(transactionType)")
+        transactionTypeButton.titleLabel?.text = transactionType
+    }
+    
     @objc func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
     
     @IBAction func submitTransaction(_ sender: Any) {
-        self.createTransaction(transactionType: "Transfer", propertyID: "001-A", newPropertySize: "2")
+        self.createTransaction(transactionType: transactionType, propertyID: "001-A", newPropertySize: "2")
 //        let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: UIAlertControllerStyle.alert)
 //        alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
 //        self.present(alert, animated: true, completion: nil)
@@ -92,15 +98,15 @@ class PerformNewTransactionViewController: UIViewController {
             }.resume()
     }
     
-    
-    /*
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ChooseTransactionType"
         {
-            if let destinationVC = segue.destinationViewController as? TransactionTypeViewController {
-                destinationVC.currentChoice = self.transactionTypeButton.titleLabel?.text
+            if let destinationVC = segue.destination as? TransactionTypeViewController {
+                if let currentLabel = self.transactionTypeButton.titleLabel?.text {
+                    destinationVC.currentChoice = currentLabel
+                    destinationVC.senderVC = self
+                }
             }
         }
     }
-    */
 }

@@ -104,7 +104,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // Set the title of the different sections in the table view
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Settings"
+        return "Transactions in Progress"
     }
     
     // Set the number of rows in the sections available in the table view
