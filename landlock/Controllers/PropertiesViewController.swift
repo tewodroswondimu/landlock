@@ -93,7 +93,7 @@ class PropertiesViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = propertiesTableView.dequeueReusableCell(withIdentifier: "Property", for: indexPath) as UITableViewCell
         let property = self.properties[indexPath.row]
         cell.textLabel?.text = property.landId
-        cell.detailTextLabel?.text = property.landStatus
+        cell.detailTextLabel?.text = property.owner
         return cell
     }
 }
