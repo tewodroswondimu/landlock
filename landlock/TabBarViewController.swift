@@ -21,7 +21,7 @@ class TabBarViewController: UITabBarController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if UserDefaults.standard.value(forKey: "user_auth_token") as! String == "" {
+        if UserDefaults.standard.value(forKey: "user_auth_token") as? String == nil {
             // Load login - LoginSegue
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login") as! LoginViewController
             self.present(vc, animated: true, completion: nil)
