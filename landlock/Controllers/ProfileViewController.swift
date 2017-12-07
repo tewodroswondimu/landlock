@@ -22,6 +22,7 @@ struct Person: Decodable {
 }
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var profileRegistrationStatus: UIImageView!
     @IBOutlet weak var profilePictureView: UIImageView!
     
@@ -32,6 +33,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var person = Person()
     
+    @IBAction func logoutButtonPressed(_ sender: Any) {
+        
+        let tokenStore: String = ""
+        UserDefaults.standard.setValue(tokenStore, forKey: "user_auth_token")
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login") as! LoginViewController
+        self.present(vc, animated: true, completion: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,6 +55,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         self.person = Person()
         self.updatePerson()
+        
+        if UserDefaults.standard.value(forKey: "user_auth_token") as! String == "" {
+            // Load login - LoginSegue
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login") as! LoginViewController
+            self.present(vc, animated: true, completion: nil)
+        } else {
+            print("You're logged in")
+        }
     }
     
     override func didReceiveMemoryWarning() {

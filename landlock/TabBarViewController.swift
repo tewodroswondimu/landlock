@@ -17,6 +17,17 @@ class TabBarViewController: UITabBarController {
         self.tabBar.tintColor = self.hexStringToUIColor(hex: "74b4ae")
         // Set color of background tabBar
         // self.tabBar.barTintColor = UIColor.blue
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if UserDefaults.standard.value(forKey: "user_auth_token") as! String == "" {
+            // Load login - LoginSegue
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login") as! LoginViewController
+            self.present(vc, animated: true, completion: nil)
+        } else {
+            print("You're logged in")
+        }
     }
     
     func hexStringToUIColor (hex:String) -> UIColor {

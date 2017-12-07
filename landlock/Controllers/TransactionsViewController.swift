@@ -28,6 +28,14 @@ class TransactionsViewController: UIViewController, UITableViewDelegate, UITable
     override func viewWillAppear(_ animated: Bool) {
         transactions = [Transaction]()
         self.updateTransactions()
+        
+        if UserDefaults.standard.value(forKey: "user_auth_token") as! String == "" {
+            // Load login - LoginSegue
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login") as! LoginViewController
+            self.present(vc, animated: true, completion: nil)
+        } else {
+            print("You're logged in")
+        }
     }
     
     override func viewDidLoad() {

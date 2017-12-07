@@ -19,6 +19,17 @@ class MarketPlaceViewController: UIViewController, UITableViewDelegate, UITableV
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if UserDefaults.standard.value(forKey: "user_auth_token") as! String == "" {
+            // Load login - LoginSegue
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login") as! LoginViewController
+            self.present(vc, animated: true, completion: nil)
+        } else {
+            print("You're logged in")
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
