@@ -23,6 +23,7 @@ struct Property: Decodable {
 
 class PropertiesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var propertiesTableView: UITableView!
+    var selectedProperty = ""
     
     // Fake data to load into properties
     var properties = [Property]()
@@ -95,6 +96,28 @@ class PropertiesViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.textLabel?.text = property.landId
         cell.detailTextLabel?.text = property.owner
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let property = self.properties[indexPath.row]
+        self.selectedProperty = property.landId!
+    }
+    
+    // Prepare for segue
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let path = self.propertiesTableView.indexPathForSelectedRow {
+            let property = self.properties[path.row]
+            self.selectedProperty = property.landId!
+            
+            if segue.identifier == "Properties"
+            {
+                if let destinationVC = segue.destination as? PropertyDetailsViewController {
+                    destinationVC.propertyID = self.selectedProperty
+                    destinationVC.senderVC = self
+                }
+            }
+        }
     }
 }
 

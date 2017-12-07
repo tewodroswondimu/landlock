@@ -12,7 +12,7 @@ class TransactionTypeViewController: UIViewController, UITableViewDelegate, UITa
     @IBOutlet weak var tableView: UITableView!
     var currentChoice: String?
     var senderVC: PerformNewTransactionViewController?
-    let choices = ["Buy", "Sell", "Subdivide"]
+    let choices = ["Transfer", "Subdivide"]
     
     override func viewDidLoad() {
         if let choice = currentChoice {

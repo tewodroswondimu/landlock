@@ -294,10 +294,12 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="40"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ijE-IL-jqq">
-                                        <rect key="frame" x="36.5" y="6" width="248" height="29"/>
+                                        <rect key="frame" x="78" y="6" width="165" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="4Ev-QP-141"/>
+                                        </constraints>
                                         <segments>
-                                            <segment title="Bought"/>
-                                            <segment title="Sold"/>
+                                            <segment title="Transfered"/>
                                             <segment title="Subdivided"/>
                                         </segments>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -305,9 +307,9 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.4549019608" green="0.70588235290000001" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="ijE-IL-jqq" firstAttribute="centerY" secondItem="UuH-Au-Ha7" secondAttribute="centerY" id="8Ap-A3-Mfc"/>
                                     <constraint firstAttribute="height" constant="40" id="IAS-F0-4k9"/>
-                                    <constraint firstItem="ijE-IL-jqq" firstAttribute="centerX" secondItem="UuH-Au-Ha7" secondAttribute="centerX" id="KD0-Gi-rIZ"/>
-                                    <constraint firstItem="ijE-IL-jqq" firstAttribute="centerY" secondItem="UuH-Au-Ha7" secondAttribute="centerY" id="ddE-xC-Iae"/>
+                                    <constraint firstItem="ijE-IL-jqq" firstAttribute="centerX" secondItem="UuH-Au-Ha7" secondAttribute="centerX" id="Xkc-oA-9V5"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -474,8 +476,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5lV-F6-1qu" userLabel="Property">
                                 <rect key="frame" x="0.0" y="311" width="320" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transfer to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xnu-ZV-ecQ">
-                                        <rect key="frame" x="8" y="18" width="59.5" height="14.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Land Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xnu-ZV-ecQ">
+                                        <rect key="frame" x="8" y="18" width="82.5" height="14.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14.5" id="Ggd-uH-JKe"/>
                                         </constraints>
@@ -483,8 +485,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lfu-7B-B1f">
-                                        <rect key="frame" x="75.5" y="10" width="236.5" height="30"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lfu-7B-B1f">
+                                        <rect key="frame" x="98.5" y="10" width="213.5" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="8OX-CI-gw6"/>
                                         </constraints>
@@ -563,8 +565,11 @@
                     </view>
                     <connections>
                         <outlet property="amountTextField" destination="lfu-7B-B1f" id="KHe-kO-1oz"/>
+                        <outlet property="propertyLabel" destination="4c1-F6-lFw" id="IDA-Oo-kjz"/>
                         <outlet property="propertyTextField" destination="wK8-73-ilg" id="kEX-Wv-eVr"/>
                         <outlet property="transactionTypeButton" destination="pTD-eC-KcT" id="cPV-Ro-GON"/>
+                        <outlet property="transactionTypeLabel" destination="P5T-d5-N6x" id="4jB-vh-0C0"/>
+                        <outlet property="transferToLabel" destination="Xnu-ZV-ecQ" id="V34-i3-3v0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TNb-u2-w8T" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -655,7 +660,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="QBE-tX-d4h" kind="show" id="vtI-y3-XBI"/>
+                                            <segue destination="QBE-tX-d4h" kind="show" identifier="Properties" id="vtI-y3-XBI"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -690,13 +695,45 @@
                     <view key="view" contentMode="scaleToFill" id="mtJ-3d-jIT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xhq-ha-KJl">
+                                <rect key="frame" x="16" y="80" width="288" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="gIN-3S-bxn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ych-uI-nAY">
+                                <rect key="frame" x="16" y="109" width="288" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ST5-HH-dRR"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ych-uI-nAY" firstAttribute="leading" secondItem="vNY-nU-Yhc" secondAttribute="leading" constant="16" id="Ih6-E3-r1C"/>
+                            <constraint firstItem="ych-uI-nAY" firstAttribute="top" secondItem="xhq-ha-KJl" secondAttribute="bottom" constant="8" id="RW1-o7-nuj"/>
+                            <constraint firstItem="xhq-ha-KJl" firstAttribute="leading" secondItem="vNY-nU-Yhc" secondAttribute="leading" constant="16" id="ajV-eE-xsQ"/>
+                            <constraint firstItem="xhq-ha-KJl" firstAttribute="top" secondItem="vNY-nU-Yhc" secondAttribute="top" constant="16" id="c43-5M-6Ph"/>
+                            <constraint firstItem="vNY-nU-Yhc" firstAttribute="trailing" secondItem="xhq-ha-KJl" secondAttribute="trailing" constant="16" id="nHq-ZZ-zsb"/>
+                            <constraint firstItem="vNY-nU-Yhc" firstAttribute="trailing" secondItem="ych-uI-nAY" secondAttribute="trailing" constant="16" id="rJT-8L-aha"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vNY-nU-Yhc"/>
                     </view>
+                    <connections>
+                        <outlet property="propertyLabel" destination="xhq-ha-KJl" id="Bil-CS-qry"/>
+                        <outlet property="propertyTextField" destination="ych-uI-nAY" id="j3F-do-Npn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pet-d5-TbK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3086" y="163"/>
+            <point key="canvasLocation" x="3084.375" y="162.67605633802816"/>
         </scene>
         <!--Search-->
         <scene sceneID="GDu-K2-mqt">

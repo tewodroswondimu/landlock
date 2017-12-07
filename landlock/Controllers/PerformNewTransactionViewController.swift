@@ -8,19 +8,30 @@
 
 import UIKit
 
+struct landJSONDescription: Decodable {
+    let results: [SubdividedLand]
+    let type: String
+}
+
+struct SubdividedLand: Decodable {
+    var landId1: String?
+    var landId2: String?
+}
+
 class PerformNewTransactionViewController: UIViewController {
     
-    var transactionType = "Transfer"
+    var transactionType = "Subdivide"
     let property = "001-A"
     let amount = "1"
     
     @IBOutlet weak var transactionTypeButton: UIButton!
     @IBOutlet weak var amountTextField: UITextField!
     
+    @IBOutlet weak var transactionTypeLabel: NSLayoutConstraint!
     @IBOutlet weak var propertyTextField: UITextField!
-    @IBAction func onTransactionButtonPressed(_ sender: Any) {
-    }
     
+    @IBOutlet weak var transferToLabel: UILabel!
+    @IBOutlet weak var propertyLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         transactionTypeButton.contentHorizontalAlignment = .center
@@ -30,11 +41,20 @@ class PerformNewTransactionViewController: UIViewController {
 
         // remove the border for the text field
         propertyTextField.borderStyle = .none
+        propertyTextField.attributedPlaceholder = NSAttributedString(string: "Email Address", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         amountTextField.borderStyle = .none
     }
     
     override func viewWillAppear(_ animated: Bool) {
         print("the new transaction type is: \(transactionType)")
+        if transactionType == "Transfer" {
+            self.transferToLabel.text = "Transfer to"
+            propertyTextField.attributedPlaceholder = NSAttributedString(string: "Email Address", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        } else if transactionType == "Subdivide" {
+            self.transferToLabel.text = "New Land Size"
+            
+            propertyTextField.attributedPlaceholder = NSAttributedString(string: "Land Size", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        }
         transactionTypeButton.titleLabel?.text = transactionType
     }
     
@@ -44,13 +64,22 @@ class PerformNewTransactionViewController: UIViewController {
     }
     
     @IBAction func submitTransaction(_ sender: Any) {
-        self.createTransaction(transactionType: transactionType, propertyID: "001-A", newPropertySize: "2")
-//        let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: UIAlertControllerStyle.alert)
-//        alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
-//        self.present(alert, animated: true, completion: nil)
-        if let navController = self.navigationController {
-            navController.popViewController(animated: true)
-        }
+        self.createTransaction(transactionType: transactionType, propertyID: propertyTextField.text!, newPropertySize: amountTextField.text!)
+        
+        let alert = UIAlertController(title: "Transaction Completed", message: "Message", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                if let navController = self.navigationController {
+                    navController.popViewController(animated: true)
+                }
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")}}))
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -59,14 +88,23 @@ class PerformNewTransactionViewController: UIViewController {
     }
     
     func createTransaction(transactionType: String, propertyID: String,  newPropertySize: String) {
+        var jsonUrlString: String = "http://165.165.131.67:4000/land/"
+        let currentUser = "roger@gmail.com"
+        var parameterDictionary: [String: String] = ["": ""]
+        if transactionType == "Transfer" {
+            jsonUrlString = jsonUrlString + "transfer-request"
+            parameterDictionary = ["granteeId" : amountTextField.text!, "landId": propertyTextField.text!, "doneBy": currentUser]
+        } else if transactionType == "Subdivide" {
+            jsonUrlString = jsonUrlString + "subdivide-request"
+            parameterDictionary = ["originalLandId" :  propertyTextField.text!, "newLandSize": amountTextField.text!, "doneBy": currentUser]
+        }
         
-        let jsonUrlString = "http://165.165.131.67:4000/land/transfer"
         guard let url = URL(string: jsonUrlString) else { return }
-        
-        let parameterDictionary = ["granteeId" : amountTextField.text!, "landId": propertyTextField.text!, "doneBy": "teddy@gmail.com"]
+    
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
         guard let httpBody = try? JSONSerialization.data(withJSONObject: parameterDictionary, options: []) else {
             return
         }
@@ -78,24 +116,18 @@ class PerformNewTransactionViewController: UIViewController {
             
             // Get a non-optional data string
             guard let data = data else { return }
-            
             do {
-                let jsonDescription = try JSONDecoder().decode(personJSONDescription.self, from: data)
-                print(jsonDescription)
-                /*
-                for person in jsonDescription.results {
-                    self.person = person
-                    DispatchQueue.main.async {
-                        //self.profilePictureName.text = person.firstName! + " " + person.lastName!
-                        self.profileAccountDetails.text = person.email
-                    }
-                }
-                */
                 
+                let myJSON = try  JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary
+                print(myJSON)
+                
+                let jsonDescription = try JSONDecoder().decode(landJSONDescription.self, from: data)
+                
+                print(jsonDescription)
             } catch let jsonErr {
                 print("Error serializing json: \(jsonErr)")
             }
-            }.resume()
+        }.resume()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
